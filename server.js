@@ -3,7 +3,9 @@
 var express = require('express');
 var fs      = require('fs');
 var routes = require('./routes');
-var enemies = require('./routes/enemies');
+var path = require('path');
+
+//var enemies = require('./routes/enemies');
 
 /**
  *  Define the sample application.
@@ -112,7 +114,7 @@ var SampleApp = function() {
         self.routes['/api/getenemy'] = enemies.GetEnemy;
         self.routes['/api/saveenemy'] = enemies.SaveEnemy;
 
-         self.routes['/'] = routes.index;
+        self.routes['/'] = routes.index;
     };
 
 
@@ -130,6 +132,8 @@ var SampleApp = function() {
         }
 
         self.app.set('views', __dirname + '/views');
+        self.app.set('view engine', 'jade');
+        self.app.use(express.static(path.join(__dirname, 'public')));
     };
 
 

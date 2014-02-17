@@ -1,0 +1,1 @@
+exports.enemy = require('./enemy.js').schema;

@@ -2,7 +2,8 @@
 //  OpenShift sample Node application
 var express = require('express');
 var fs      = require('fs');
-
+var routes = require('./routes');
+var enemies = require('./routes/enemies');
 
 /**
  *  Define the sample application.
@@ -31,6 +32,8 @@ var SampleApp = function() {
             console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
             self.ipaddress = "127.0.0.1";
         };
+
+        app.set('views', __dirname + '/views');
     };
 
 
@@ -95,6 +98,7 @@ var SampleApp = function() {
     self.createRoutes = function() {
         self.routes = { };
 
+        /*
         self.routes['/asciimo'] = function(req, res) {
             var link = "http://i.imgur.com/kmbjB.png";
             res.send("<html><body><img src='" + link + "'></body></html>");
@@ -104,6 +108,13 @@ var SampleApp = function() {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.cache_get('index.html') );
         };
+        */
+
+        self.routes['/api/getenemies'] = enemies.GetEnemies;
+        self.routes['/api/getenemy'] = enemies.GetEnemy;
+        self.routes['/api/saveenemy'] = enemies.SaveEnemy;
+
+         self.routes['/'] = routes.index;
     };
 
 

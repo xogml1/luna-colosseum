@@ -49,7 +49,7 @@ exports.GetEnemies = function(req, res){
 exports.SaveEnemy = function(req, res) {
 	var data = req.body;
 
-	//console.log(util.inspect(req));
+	console.log(util.inspect(data));
 
 	var SaveEnemyCallback = function(err){
 		if(err){
@@ -78,8 +78,9 @@ exports.SaveEnemy = function(req, res) {
 		else {
 			if(enemy){
 				data.deck.InsDate = Date.now();
-				enemy.decks.push(data.deck)
+				enemy.decks.push({deck:data.deck,InsDate:Date.now()})
 				console.log("update");
+				console.log(enemy);
 				enemy.save(SaveEnemyCallback);
 			}
 			else{

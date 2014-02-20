@@ -12,18 +12,20 @@ var Index = function(){
 		$("#search").click(Control.Search);
 		$("#add").click(Control.Add);
 		$("#save").click(Control.Save);
+		$("#close").click(Control.Close);
 	};
 
 	var Control = {
 		Search : function(){
 			var searchValue = $("#searchValue").val();
 			if(searchValue && $.trim(searchValue).length > 0){
+				$("#searchResultDiv").empty();
 				$.ajax({
 					url: '/enemies/'+searchValue,
 					method: 'GET',
 					success: function (response) {
 						if(response.length > 0){
-							var html = "";
+							var html = "<div>";
 							for(var i in response){
 								var enemy = response[i];
 								var enemyHtml = "<h3>"+enemy._id+"</h3><div><ul>";
@@ -34,7 +36,9 @@ var Index = function(){
 
 								html += enemyHtml + "</ul></div>";
 							}
-							$("#searchResultDiv").html(html).accordion();
+							html = $(html+"</dev>");
+							$("#searchResultDiv").append(html);
+							html.accordion();
 						}
 						else{
 							$("#searchResultDiv").html("없어!!");
@@ -63,6 +67,9 @@ var Index = function(){
 		Add : function(){
 			$("#saveDiv").show();
 			$("#id").focus();
+		},
+		Close: function(){
+			$("#saveDiv").hide();
 		},
 		Save : function(){
 			var id = $("#id").val();

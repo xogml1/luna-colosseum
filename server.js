@@ -110,9 +110,9 @@ var SampleApp = function() {
         };
         */
 
-        self.routes['/api/getenemies'] = enemies.GetEnemies;
-        self.routes['/api/getenemy'] = enemies.GetEnemy;
-        self.routes['/api/saveenemy'] = enemies.SaveEnemy;
+        //self.routes['/api/getenemies'] = enemies.GetEnemies;
+        //self.routes['/api/getenemy'] = enemies.GetEnemy;
+        //self.routes['/api/saveenemy'] = enemies.SaveEnemy;
 
         self.routes['/'] = routes.index;
     };

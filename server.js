@@ -4,8 +4,7 @@ var express = require('express');
 var fs      = require('fs');
 var routes = require('./routes');
 var path = require('path');
-
-//var enemies = require('./routes/enemies');
+var util = require('util');
 
 /**
  *  Define the sample application.
@@ -96,7 +95,7 @@ var SampleApp = function() {
      *  Create the routing table entries + handlers for the application.
      */
     self.createRoutes = function() {
-        self.routes = { };
+        self.get = { };
 
         /*
         self.routes['/asciimo'] = function(req, res) {
@@ -110,11 +109,13 @@ var SampleApp = function() {
         };
         */
 
-        //self.routes['/api/getenemies'] = enemies.GetEnemies;
-        //self.routes['/api/getenemy'] = enemies.GetEnemy;
-        //self.routes['/api/saveenemy'] = enemies.SaveEnemy;
+        self.get['/enemies/:searchValue'] = routes.enemies.GetEnemies;
+        self.get['/'] = routes.index;
 
-        self.routes['/'] = routes.index;
+        self.post = {};
+        self.post['/enemy'] = routes.enemies.SaveEnemy;
+
+        self.del = {};
     };
 
 
@@ -126,14 +127,25 @@ var SampleApp = function() {
         self.createRoutes();
         self.app = express();
 
-        //  Add handlers for the app (from the routes).
-        for (var r in self.routes) {
-            self.app.get(r, self.routes[r]);
-        }
-
         self.app.set('views', __dirname + '/views');
         self.app.set('view engine', 'jade');
         self.app.use(express.static(path.join(__dirname, 'public')));
+        self.app.use(express.bodyParser());
+
+        //  Add handlers for the app (from the get).
+        for (var r in self.get) {
+            self.app.get(r, self.get[r]);
+        }
+
+        //  Add handlers for the app (from the post).
+        for (var r in self.post) {
+            self.app.post(r, self.post[r]);
+        }
+
+        //  Add handlers for the app (from the del).
+        for (var r in self.del) {
+            self.app.de;(r, self.del[r]);
+        }
     };
 
 

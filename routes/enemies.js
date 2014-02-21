@@ -21,15 +21,10 @@ var Enemy = db.model('enemies', schema.enemy);
 exports.GetEnemies = function(req, res){
 	var searchValue = req.param('searchValue');
 
-	// where query
-	var query = {_id:new RegExp('^'+searchValue+'.*', "i")};
-
-	console.log(util.inspect(query));
-
 	var FindEnemiesCallback = function(err, enemies){
-		console.log(util.inspect(enemies));
+		//console.log(util.inspect(enemies));
 		if(err){
-			console.log(err);
+			//console.log(err);
 			res.json({
 				err : {
 				  msg : err.message
@@ -43,17 +38,19 @@ exports.GetEnemies = function(req, res){
 
 	var select = "id decks";
 
+	var query = (searchValue && searchValue != "")? {_id:new RegExp('^'+searchValue+'.*', "i")} : {};
+
 	Enemy.find(query, select, FindEnemiesCallback);
 };
 
 exports.SaveEnemy = function(req, res) {
 	var data = req.body;
 
-	console.log(util.inspect(data));
+	//console.log(util.inspect(data));
 
 	var SaveEnemyCallback = function(err){
 		if(err){
-			console.log(err);
+			//console.log(err);
 			res.json({
 				err : {
 				msg : err.message
@@ -68,7 +65,7 @@ exports.SaveEnemy = function(req, res) {
 	var findQuery = {_id:data.id};
 	var FindEnemyCallback = function(err, enemy){
 		if(err){
-			console.log(err);
+			//console.log(err);
 			res.json({
 				err : {
 				  msg : err.message
@@ -79,8 +76,8 @@ exports.SaveEnemy = function(req, res) {
 			if(enemy){
 				data.deck.InsDate = Date.now();
 				enemy.decks.push({deck:data.deck,InsDate:Date.now()})
-				console.log("update");
-				console.log(enemy);
+				//console.log("update");
+				//console.log(enemy);
 				enemy.save(SaveEnemyCallback);
 			}
 			else{
@@ -95,7 +92,7 @@ exports.SaveEnemy = function(req, res) {
 					deck : data.deck,
 					InsDate : Date.now()
 				});
-				console.log("add");
+				//console.log("add");
 				enemy.save(SaveEnemyCallback);
 			}
 		}
@@ -104,4 +101,29 @@ exports.SaveEnemy = function(req, res) {
 	var select = "id decks";
 
 	Enemy.findOne(findQuery, select, FindEnemyCallback);
+};
+
+exports.DeleteEnemies = function(req, res){
+	var searchValue = req.param('searchValue');
+
+	//console.log(util.inspect(query));
+
+	var RemoveEnemiesCallback = function(err){
+		//console.log(util.inspect(enemies));
+		if(err){
+			console.log(err);
+			res.json({
+				err : {
+				  msg : err.message
+				}
+			});
+		}
+		else {
+			res.json(true);
+		}
+	};
+
+	var query = (searchValue && searchValue != "")? {_id:searchValue} : {};
+	
+	Enemy.remove(query, RemoveEnemiesCallback);
 };

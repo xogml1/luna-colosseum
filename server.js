@@ -110,12 +110,15 @@ var SampleApp = function() {
         */
 
         self.get['/enemies/:searchValue'] = routes.enemies.GetEnemies;
+        self.get['/enemies'] = routes.enemies.GetEnemies;
         self.get['/'] = routes.index;
 
         self.post = {};
         self.post['/enemy'] = routes.enemies.SaveEnemy;
 
         self.del = {};
+        self.del['/enemies/:searchValue'] = routes.enemies.DeleteEnemies;
+        self.del['/enemies'] = routes.enemies.DeleteEnemies;
     };
 
 
@@ -144,7 +147,7 @@ var SampleApp = function() {
 
         //  Add handlers for the app (from the del).
         for (var r in self.del) {
-            self.app.de;(r, self.del[r]);
+            self.app.del(r, self.del[r]);
         }
     };
 

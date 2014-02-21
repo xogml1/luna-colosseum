@@ -3,7 +3,7 @@ var Utils = {
 		return str = ("" + str).length < 2 ? "0" + str : str;
 	},
 	FullFormatDate : function (o) {
-		return o.getFullYear() + '-' + Utils.DateFormatLen(o.getMonth() + 1) + '-' + Utils.DateFormatLen(o.getDate()) + ' ' + Utils.DateFormatLen(o.getHours()) + ':' + Utils.DateFormatLen(o.getMinutes()) + ':' + Utils.DateFormatLen(o.getSeconds());
+		return Utils.DateFormatLen(o.getDate()) + ' ' + Utils.DateFormatLen(o.getHours()) + ':' + Utils.DateFormatLen(o.getMinutes()) + ':' + Utils.DateFormatLen(o.getSeconds());
 	}
 }
 

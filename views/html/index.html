@@ -1,38 +1,40 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <html>
 	<head>
 		<title>TEST</title>
-		<link href="/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="/js/jquery/jquery-1.11.0.min.js" ></script>
-		<script type="text/javascript" src="/js/jquery/jquery-ui-1.10.4.custom.min.js" ></script>
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.css">
+		<script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.js"></script>
+		
 		<script type="text/javascript" src="/js/index.js" ></script>
 	</head>
 	<body>
 		<div id="searchDiv">
-			<input type="text" id="searchValue"/><input type="button" value="검색" id="search"/><input type="button" value="추가" id="add"/>
+			<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset">
+				<input type="text" id="searchValue" />
+			</div>
+			<input type="button" value="검색" id="search" class="ui-shadow ui-btn ui-corner-all ui-btn-inline"/>
+			<input type="button" value="추가" id="add" class="ui-shadow ui-btn ui-corner-all ui-btn-inline"/>
 		</div>
-		<div id="saveDiv" style="display:none;">
-			<table>
-				<tr>
-					<td>
-					아이디
-					</td>
-					<td>
-					<input type="text" id="id"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-					덱
-					</td>
-					<td>
-					<input type="text" id="deck"/>
-					</td>
-				</tr>
-			</table>
-			<input type="button" value="저장" id="save"/>
-			<input type="button" value="닫기" id="close"/>
+		<div id="saveDiv" style="display:none;" class="preview ui-shadow add-swatch">
+			<div class="ui-field-contain">
+			    <label for="textinput-fc">아이디 :</label>
+			    <div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset">
+			    	<input type="text" name="textinput-fc" id="textinput-fc"  value="">
+			    </div>
+			</div>
+			<div class="ui-field-contain">
+			    <label for="textinput-fc">덱 :</label>
+			    <div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset">
+			    	<input type="text" name="textinput-fc" id="textinput-fc"  value="">
+			    </div>
+			</div>
+			<input type="button" value="저장" id="save" class="ui-shadow ui-btn ui-corner-all ui-btn-inline"/>
+			<input type="button" value="닫기" id="close" class="ui-shadow ui-btn ui-corner-all ui-btn-inline"/>
 		</div>
-		<div id="searchResultDiv">
+		<div data-role="content">
+			<div id="searchResultDiv" data-role="collapsible-set">
+			</div>
 		</div>
 	</body>
 </html>

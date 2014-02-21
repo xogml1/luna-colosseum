@@ -25,10 +25,10 @@ var Index = function(){
 					method: 'GET',
 					success: function (response) {
 						if(response.length > 0){
-							var html = "<div>";
+							var html = "";
 							for(var i in response){
 								var enemy = response[i];
-								var enemyHtml = "<h3>"+enemy._id+"</h3><div><ul>";
+								var enemyHtml = "<div data-role='collapsible' data-mini='true'><h4>"+enemy._id+"</h4><ul data-role='listview'>";
 								for(var k in enemy.decks){
 									var deck = enemy.decks[k];
 									enemyHtml += "<li>"+deck.deck + "("+Utils.FullFormatDate(new Date(deck.InsDate))+")</li>";
@@ -36,9 +36,8 @@ var Index = function(){
 
 								html += enemyHtml + "</ul></div>";
 							}
-							html = $(html+"</dev>");
-							$("#searchResultDiv").append(html);
-							html.accordion();
+							html = $(html);
+							$("#searchResultDiv").append(html).trigger('create');
 						}
 						else{
 							$("#searchResultDiv").html("없어!!");
